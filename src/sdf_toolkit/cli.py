@@ -5,6 +5,9 @@ from pathlib import Path
 
 import click
 
+from sdf_toolkit import image_io
+from sdf_toolkit import sdf as sdf_lib
+
 
 def _image_input_option(f: click.decorators.FC) -> click.decorators.FC:
     return click.option(
@@ -45,4 +48,9 @@ def copy(input_image: Path, output_dir: Path) -> None:
 @_output_dir_option
 def sdf(input_image: Path, output_dir: Path) -> None:
     """Generate a signed distance field texture from an image."""
-    raise NotImplementedError("SDF generation is not yet implemented.")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    dest = output_dir / input_image.name
+    mask = image_io.load_r_channel(input_image)
+    result = sdf_lib.generate_sdf(mask)
+    image_io.save_grayscale(result, dest)
+    click.echo(f"SDF generated {input_image} -> {dest}")

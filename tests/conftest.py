@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from PIL import Image
+from PIL import Image, ImageDraw
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
 
@@ -16,5 +16,10 @@ def fixtures_dir() -> Path:
 @pytest.fixture
 def sample_png(tmp_path: Path) -> Path:
     path = tmp_path / "sample.png"
-    Image.new("RGBA", (64, 64), (255, 0, 0, 128)).save(path)
+    img = Image.new("RGBA", (64, 64), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(img)
+
+    draw.circle((32, 32), 16, fill=(255, 0, 0, 0))
+
+    img.save(path)
     return path
