@@ -37,6 +37,6 @@ class SettingsPanel(QWidget):
         layout.addWidget(self.tabs, stretch=1)
 
         self.input_path = PathSelector("Input Image:")
-        self.output_path = PathSelector("Output Dir:")
+        self.output_path = PathSelector("Output Dir:", mode="directory")
         layout.addWidget(self.input_path)
         layout.addWidget(self.output_path)

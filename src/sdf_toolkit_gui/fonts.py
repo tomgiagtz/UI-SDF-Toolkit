@@ -18,4 +18,4 @@ class FontProvider:
 
     @staticmethod
     def default() -> QFont:
-        return QFont(FontProvider.FAMILY, FontProvider.DEFAULT_SIZE, weight=QFont.Weight.Black)
+        return QFont(FontProvider.FAMILY, FontProvider.DEFAULT_SIZE, weight=QFont.Weight.Normal)
